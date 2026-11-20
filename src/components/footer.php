@@ -1,3 +1,4 @@
+<?php declare(strict_types=1); ?>
     </main>
 
     <!-- Footer -->
@@ -6,7 +7,7 @@
             <div class="flex items-center gap-2">
                 <i class="fa-solid fa-terminal text-emerald-400"></i>
                 <span class="font-mono text-slate-300">CyberPulse Security CTF Lab</span>
-                <span class="text-xs text-slate-600">| Apache + Docker Edition</span>
+                <span class="text-xs text-slate-600">| Apache + Docker Edition v3.0</span>
             </div>
             <div class="flex items-center gap-4 text-xs text-slate-500 font-mono">
                 <span>Ambiente Seguro Local</span>
@@ -20,11 +21,11 @@
 
     <!-- Modal Global de Submissão de Flag -->
     <div id="flagModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-700/80 rounded-2xl max-w-md w-full p-6 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
+        <div class="bg-slate-900 border border-slate-700/80 rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
             <button onclick="closeGlobalFlagModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
-            
+
             <div class="flex items-center gap-3 mb-4">
                 <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
                     <i class="fa-solid fa-flag-checkered text-lg"></i>
@@ -62,4 +63,3 @@
     <script src="/assets/js/app.js"></script>
 </body>
 </html>
-

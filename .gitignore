@@ -1,0 +1,23 @@
+# Banco de dados e dados voláteis de runtime
+src/data/*.db
+src/data/*.sqlite
+src/data/*.sqlite3
+!src/data/.gitkeep
+
+# Arquivos temporários e logs
+*.log
+*.tmp
+*.bak.swp
+.DS_Store
+Thumbs.db
+
+# IDEs e editores
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Mídias e testes temporários de gravação
+*.mp4
+*.webm
+scratch/

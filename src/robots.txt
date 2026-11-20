@@ -1,8 +1,7 @@
-# Arquivo de configuração de robôs para motores de busca
+# Arquivo de configuracao de robos para motores de busca (robots.txt)
 User-agent: *
-Disallow: /challenges/backup_admin_2026.bak.php
+Disallow: /challenges/backup_admin_2026.bak
 Disallow: /data/
 Disallow: /api/secret/
 
-# Lembrete dev: Não esquecer de remover o arquivo de backup antes de publicar em produção!
-
+# Lembrete dev: Nao esquecer de remover o arquivo de backup antes de publicar em producao!

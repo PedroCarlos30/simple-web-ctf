@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 $pageTitle = "Desafio 7: Adulteração de Cookies & Sessão";
 
 // Tratamento de Cookies antes de emitir HTML
@@ -179,17 +181,27 @@ $isAdmin = ($currentRole === 'admin');
         </div>
     </div>
 
-    <!-- Dicas & Mitigação -->
+    <!-- Dicas Progressivas & Mitigação -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
             <h4 class="font-bold text-sm text-amber-400 flex items-center gap-2">
                 <i class="fa-solid fa-lightbulb"></i> Passo a Passo da Exploração
             </h4>
-            <ul class="text-xs text-slate-300 space-y-2 font-mono">
-                <li>1. No editor de JSON acima, altere <code class="text-rose-400">"role": "guest"</code> para <code class="text-emerald-400">"role": "admin"</code>.</li>
-                <li>2. Clique em <strong>"Codificar e Aplicar Cookie"</strong> para atualizar o cookie no navegador.</li>
-                <li>3. Ou faça pelo DevTools (F12) -> Application -> Cookies -> alterando o valor de <code class="text-cyan-400">auth_token</code>!</li>
-            </ul>
+            <div class="text-xs text-slate-300 space-y-3 font-mono">
+                <p class="text-emerald-400 font-semibold">Dica 1:</p>
+                <p>• <?= htmlspecialchars($challenge['hint1']) ?></p>
+                <div id="hint2-wrapper-crypto_07">
+                    <button id="hint2-btn-crypto_07" onclick="revealHint2('crypto_07')"
+                        class="mt-2 px-3 py-1.5 rounded-lg border border-slate-700 text-slate-400 text-xs flex items-center gap-2 hint2-lock-btn opacity-50 cursor-not-allowed"
+                        disabled>
+                        <i class="fa-solid fa-lock text-amber-400"></i> Revelar Dica 2 (tente primeiro)
+                    </button>
+                    <div id="hint2-crypto_07" class="hidden mt-2 p-3 rounded-lg bg-amber-950/30 border border-amber-500/30">
+                        <p class="text-amber-300 font-semibold mb-1">Dica 2:</p>
+                        <p class="text-slate-300">• <?= htmlspecialchars($challenge['hint2']) ?></p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
@@ -212,6 +224,8 @@ setcookie('session_id', $val, [
 </div>
 
 <script>
+document.addEventListener('DOMContentLoaded', () => { initHint2State('crypto_07'); });
+
 function applyTamperedCookie() {
     try {
         const jsonText = document.getElementById('cookieJson').value;

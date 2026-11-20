@@ -1,48 +1,46 @@
 <?php
+declare(strict_types=1);
+
 require_once __DIR__ . '/config.php';
 
-$totalScore = getTotalScore();
-$maxScore = getTotalPossibleScore();
-$solvedCount = count($_SESSION['solved_flags']);
+$totalScore      = getTotalScore();
+$maxScore        = getTotalPossibleScore();
+$solvedCount     = count(getProgress());
 $totalChallenges = count($CHALLENGES);
-$progressPercent = $totalChallenges > 0 ? round(($solvedCount / $totalChallenges) * 100) : 0;
+$progressPercent = $totalChallenges > 0 ? (int)round(($solvedCount / $totalChallenges) * 100) : 0;
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="csrf-token" content="<?= getCsrfToken() ?>">
     <title>CyberPulse CTF Lab | Plataforma de Cibersegurança</title>
     
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS config (deve vir ANTES do script) -->
     <script>
-        tailwind.config = {
+        tailwind = { config: {
             darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
                         cyber: {
-                            bg: '#0a0d14',
-                            card: '#111726',
-                            border: '#1e293b',
-                            accent: '#10b981',
-                            neon: '#06b6d4',
-                            danger: '#ef4444',
-                            warning: '#f59e0b',
-                            purple: '#8b5cf6'
+                            bg: '#0a0d14', card: '#111726', border: '#1e293b',
+                            accent: '#10b981', neon: '#06b6d4',
+                            danger: '#ef4444', warning: '#f59e0b', purple: '#8b5cf6'
                         }
                     },
-                    fontFamily: {
-                        mono: ['JetBrains Mono', 'Fira Code', 'Courier New', 'monospace']
-                    }
+                    fontFamily: { mono: ['JetBrains Mono', 'Fira Code', 'Courier New', 'monospace'] }
                 }
             }
-        }
+        }};
     </script>
+    <!-- Tailwind CSS — servido localmente -->
+    <script src="assets/css/tailwind.min.js"></script>
     
-    <!-- FontAwesome Ícones -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- FontAwesome Ícones — servido localmente -->
+    <link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
     
     <!-- Conexão com Estilo Personalizado Local -->
     <link rel="stylesheet" href="assets/css/custom.css">
@@ -272,14 +270,23 @@ $progressPercent = $totalChallenges > 0 ? round(($solvedCount / $totalChallenges
                                     </button>
                                 </div>
 
-                                <!-- Caixa de Dicas Acordeão -->
+                                <!-- Caixa de Dicas Acordeão com sistema progressivo -->
                                 <div id="hints-<?= $id ?>" class="hidden bg-slate-950/80 rounded-xl p-3 border border-slate-800 text-xs space-y-2 font-mono">
                                     <p class="text-amber-400 font-semibold flex items-center gap-1">
                                         <i class="fa-solid fa-circle-info"></i> Dicas para Exploração:
                                     </p>
-                                    <?php foreach ($ch['hints'] as $hint): ?>
-                                        <p class="text-slate-300">• <?= htmlspecialchars($hint) ?></p>
-                                    <?php endforeach; ?>
+                                    <p class="text-slate-300">• <?= htmlspecialchars($ch['hint1']) ?></p>
+                                    <div>
+                                        <button id="hint2-btn-<?= $id ?>" onclick="revealHint2('<?= $id ?>')"
+                                            class="mt-1 px-2.5 py-1 rounded-lg border border-slate-700 text-slate-400 text-[11px] flex items-center gap-1.5 hint2-lock-btn opacity-50 cursor-not-allowed"
+                                            disabled title="Submeta uma flag incorreta para desbloquear">
+                                            <i class="fa-solid fa-lock text-amber-400 text-[10px]"></i> Revelar Dica 2
+                                        </button>
+                                        <div id="hint2-<?= $id ?>" class="hidden mt-1.5 p-2 rounded-lg bg-amber-950/30 border border-amber-500/30">
+                                            <p class="text-slate-300">• <?= htmlspecialchars($ch['hint2']) ?></p>
+                                        </div>
+                                    </div>
+                                </div>
                                 </div>
 
                                 <!-- Caixa de Mitigação Acordeão -->
@@ -398,8 +405,16 @@ $progressPercent = $totalChallenges > 0 ? round(($solvedCount / $totalChallenges
     <!-- Container de Notificações Toast -->
     <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none"></div>
 
-    <!-- Conexão com os Scripts Existentes -->
+    <!-- Scripts -->
     <script src="assets/js/confetti.min.js"></script>
     <script src="assets/js/app.js"></script>
+    <script>
+    // Inicializar estado das dicas progressivas para todos os desafios do dashboard
+    document.addEventListener('DOMContentLoaded', () => {
+        <?php foreach (array_keys($CHALLENGES) as $cid): ?>
+        initHint2State('<?= $cid ?>');
+        <?php endforeach; ?>
+    });
+    </script>
 </body>
 </html>

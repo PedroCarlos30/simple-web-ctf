@@ -1,13 +1,15 @@
 <?php
-$pageTitle = "Desafio 1: Reconhecimento";
+declare(strict_types=1);
+
+$pageTitle = 'Desafio 1: Reconhecimento';
 require_once __DIR__ . '/../components/header.php';
 
 $challenge = $CHALLENGES['recon_01'];
-$solved = isSolved('recon_01');
+$solved    = isSolved('recon_01');
 ?>
 
 <!-- Comentário do Desenvolvedor (Vazamento de Informação):
-     TODO: Não esquecer de apagar o arquivo de backup /challenges/backup_admin_2026.bak.php 
+     TODO: Não esquecer de apagar o arquivo de backup /challenges/backup_admin_2026.bak
      antes da homologação final! Também listado em /robots.txt
 -->
 
@@ -24,7 +26,6 @@ $solved = isSolved('recon_01');
             </div>
             <h1 class="text-2xl sm:text-3xl font-black text-white"><?= htmlspecialchars($challenge['title']) ?></h1>
         </div>
-        
         <div class="flex items-center gap-3">
             <span class="px-3 py-1 rounded-full text-xs font-bold font-mono bg-amber-500/10 text-amber-400 border border-amber-500/30">
                 +<?= $challenge['points'] ?> PTS
@@ -35,18 +36,15 @@ $solved = isSolved('recon_01');
         </div>
     </div>
 
-    <!-- Banner de Resolvido se aplicável -->
     <?php if ($solved): ?>
-        <div class="p-4 rounded-2xl bg-emerald-950/30 border border-emerald-500/40 text-emerald-300 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <i class="fa-solid fa-circle-check text-xl text-emerald-400"></i>
-                <span class="font-medium text-sm">Parabéns! Você já capturou a flag deste desafio: <code class="font-mono bg-slate-900 px-2 py-0.5 rounded text-emerald-400 font-bold"><?= $challenge['flag'] ?></code></span>
-            </div>
+        <div class="p-4 rounded-2xl bg-emerald-950/30 border border-emerald-500/40 text-emerald-300 flex items-center gap-3">
+            <i class="fa-solid fa-circle-check text-xl text-emerald-400"></i>
+            <span class="font-medium text-sm">Parabéns! Você já capturou a flag: <code class="font-mono bg-slate-900 px-2 py-0.5 rounded text-emerald-400 font-bold"><?= $challenge['flag'] ?></code></span>
         </div>
     <?php endif; ?>
 
-    <!-- Descrição e Missão -->
-    <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 space-y-4">
+    <!-- Descrição -->
+    <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 space-y-3">
         <h3 class="text-lg font-bold text-white flex items-center gap-2">
             <i class="fa-solid fa-bullseye text-rose-400"></i> Objetivo da Missão
         </h3>
@@ -55,7 +53,7 @@ $solved = isSolved('recon_01');
         </p>
     </div>
 
-    <!-- Aplicação Alvo: Portal Corporativo -->
+    <!-- Portal Corporativo Simulado -->
     <div class="bg-slate-900 border border-slate-700 rounded-2xl overflow-hidden shadow-2xl">
         <div class="bg-slate-950 px-6 py-4 border-b border-slate-800 flex items-center justify-between">
             <div class="flex items-center gap-2">
@@ -93,42 +91,53 @@ $solved = isSolved('recon_01');
                 </div>
             </div>
 
-            <!-- Dica visual para quem inspeciona -->
-            <div class="p-4 rounded-xl bg-slate-950/40 border border-dashed border-slate-800 text-xs text-slate-400 flex items-center justify-between">
-                <span>Dica de Pentest: Pressione <kbd class="px-2 py-0.5 rounded bg-slate-800 text-slate-200 font-mono text-[10px]">Ctrl + U</kbd> ou abra o <kbd class="px-2 py-0.5 rounded bg-slate-800 text-slate-200 font-mono text-[10px]">F12 (DevTools)</kbd> para inspecionar os comentários HTML desta página.</span>
-                <a href="/robots.txt" target="_blank" class="text-emerald-400 hover:underline flex items-center gap-1 font-mono">
+            <div class="p-4 rounded-xl bg-slate-950/40 border border-dashed border-slate-800 text-xs text-slate-400 flex items-center justify-between gap-4 flex-wrap">
+                <span>Dica de Pentest: Pressione <kbd class="px-2 py-0.5 rounded bg-slate-800 text-slate-200 font-mono text-[10px]">Ctrl + U</kbd> para inspecionar os comentários HTML desta página.</span>
+                <a href="/robots.txt" target="_blank" class="text-emerald-400 hover:underline flex items-center gap-1 font-mono shrink-0">
                     Acessar /robots.txt <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- Caixa de Submissão da Flag do Desafio -->
+    <!-- Submissão da Flag -->
     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 space-y-4">
         <h4 class="font-bold text-sm text-white flex items-center gap-2">
             <i class="fa-solid fa-key text-emerald-400"></i> Encontrou a Flag? Submeta Aqui:
         </h4>
         <div class="flex flex-col sm:flex-row gap-3">
-            <input type="text" id="recon-flag-input" placeholder="FLAG{...}" 
+            <input type="text" id="recon-flag-input" placeholder="FLAG{...}"
                 class="flex-grow px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white font-mono placeholder:text-slate-600 focus:border-emerald-500 outline-none">
-            <button onclick="submitChallengeFlag('recon_01', 'recon-flag-input')" 
+            <button onclick="submitChallengeFlag('recon_01', 'recon-flag-input')"
                 class="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-lg shadow-emerald-600/20">
-                <i class="fa-solid fa-paper-plane"></i>
-                Validar Flag
+                <i class="fa-solid fa-paper-plane"></i> Validar Flag
             </button>
         </div>
     </div>
 
-    <!-- Dicas & Mitigação -->
+    <!-- Dicas Progressivas & Mitigação -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
             <h4 class="font-bold text-sm text-amber-400 flex items-center gap-2">
                 <i class="fa-solid fa-lightbulb"></i> Dicas Progressivas
             </h4>
-            <ul class="text-xs text-slate-300 space-y-2 font-mono">
-                <li>1. Acesse o arquivo <code class="text-emerald-400">/robots.txt</code> no navegador.</li>
-                <li>2. Observe quais arquivos ou extensões (.bak) foram desautorizados para robôs de busca.</li>
-            </ul>
+            <div class="text-xs text-slate-300 space-y-3 font-mono">
+                <p class="text-emerald-400 font-semibold">Dica 1:</p>
+                <p>• <?= htmlspecialchars($challenge['hint1']) ?></p>
+
+                <div id="hint2-wrapper-recon_01">
+                    <button id="hint2-btn-recon_01"
+                        onclick="revealHint2('recon_01')"
+                        class="mt-2 px-3 py-1.5 rounded-lg border border-slate-700 text-slate-400 text-xs flex items-center gap-2 hint2-lock-btn opacity-50 cursor-not-allowed"
+                        disabled title="Tente submeter uma flag incorreta para desbloquear">
+                        <i class="fa-solid fa-lock text-amber-400"></i> Revelar Dica 2 (tente primeiro)
+                    </button>
+                    <div id="hint2-recon_01" class="hidden mt-2 p-3 rounded-lg bg-amber-950/30 border border-amber-500/30">
+                        <p class="text-amber-300 font-semibold mb-1">Dica 2:</p>
+                        <p class="text-slate-300">• <?= htmlspecialchars($challenge['hint2']) ?></p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
@@ -142,5 +151,8 @@ $solved = isSolved('recon_01');
     </div>
 </div>
 
-<?php require_once __DIR__ . '/../components/footer.php'; ?>
+<script>
+document.addEventListener('DOMContentLoaded', () => { initHint2State('recon_01'); });
+</script>
 
+<?php require_once __DIR__ . '/../components/footer.php'; ?>

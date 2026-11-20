@@ -1,0 +1,25 @@
+/*
+ * ================================================================
+ * BACKUP DE CONFIGURAÇÃO INTERNA - CYBERPULSE
+ * ================================================================
+ * Arquivo:    backup_admin_2026.bak
+ * Gerado por: devops@cyberpulse.local
+ * Data:       2026-10-25
+ * STATUS:     NAO DEIXAR ESTE ARQUIVO EXPOSTO NO SERVIDOR WEB!
+ *
+ * Se voce encontrou este arquivo via robots.txt ou enumeracao
+ * de diretorios, voce concluiu o desafio de Reconhecimento!
+ *
+ * FLAG: FLAG{r3c0n_m4st3r_d1sc0v3ry}
+ * ================================================================
+ */
+
+[CONFIGURACOES DE DESENVOLVIMENTO]
+DB_DRIVER=sqlite
+DB_FILE=/var/www/html/data/ctf.db
+DEBUG_MODE=true
+ADMIN_USER=admin
+ADMIN_PASS=Secr3t_P@ssw0rd_99812!
+ADMIN_KEY=CyberSecMaster2026!
+APP_ENV=development
+LOG_LEVEL=verbose

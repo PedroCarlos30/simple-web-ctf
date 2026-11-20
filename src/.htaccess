@@ -1,0 +1,37 @@
+# CyberPulse CTF Lab — Apache Configuration
+
+# Definir página inicial padrão
+DirectoryIndex index.php index.html
+
+# Charset padrão universal
+AddDefaultCharset UTF-8
+
+# Habilitar mod_rewrite
+Options -Indexes
+RewriteEngine On
+
+# Redirecionar index.html para index.php
+RewriteRule ^index\.html$ /index.php [R=301,L]
+
+# Redirecionar rota legada de backup se acessada com .bak.php
+RewriteRule ^challenges/backup_admin_2026\.bak\.php$ /challenges/backup_admin_2026.bak [R=301,L]
+
+# Servir arquivos .bak como texto plano UTF-8 (desafio Recon)
+AddType text/plain;charset=UTF-8 .bak
+
+# Bloquear acesso direto ao banco de dados SQLite
+<FilesMatch "\.db$">
+    Require all denied
+</FilesMatch>
+
+# Bloquear acesso a arquivos de configuração sensíveis
+<FilesMatch "\.(env|log|sh|md|yml|yaml|toml)$">
+    Require all denied
+</FilesMatch>
+
+# Remover cabeçalho X-Powered-By
+Header always unset X-Powered-By
+
+# Cabeçalhos de segurança mínimos (não interferem com os desafios)
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set X-Content-Type-Options "nosniff"

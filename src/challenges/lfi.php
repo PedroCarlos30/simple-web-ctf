@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 $pageTitle = "Desafio 5: Local File Inclusion (LFI)";
 require_once __DIR__ . '/../components/header.php';
 
@@ -146,17 +148,28 @@ if (!empty($doc)) {
         </div>
     </div>
 
-    <!-- Dicas & Mitigação -->
+    <!-- Dicas Progressivas & Mitigação -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
             <h4 class="font-bold text-sm text-amber-400 flex items-center gap-2">
                 <i class="fa-solid fa-lightbulb"></i> Dicas de Exploração
             </h4>
-            <ul class="text-xs text-slate-300 space-y-2 font-mono">
-                <li>• O arquivo está na pasta <code class="text-slate-400">/challenges/pages/</code>. Para chegar na raiz web, suba dois níveis: <code class="text-emerald-400">../../</code></li>
-                <li>• Teste o payload: <code class="text-emerald-400">?doc=../../secret_flag_system.txt</code></li>
-                <li>• Também é possível inspecionar arquivos do Linux: <code class="text-cyan-400">?doc=/etc/passwd</code></li>
-            </ul>
+            <div class="text-xs text-slate-300 space-y-3 font-mono">
+                <p class="text-emerald-400 font-semibold">Dica 1:</p>
+                <p>• <?= htmlspecialchars($challenge['hint1']) ?></p>
+                <div id="hint2-wrapper-lfi_05">
+                    <button id="hint2-btn-lfi_05" onclick="revealHint2('lfi_05')"
+                        class="mt-2 px-3 py-1.5 rounded-lg border border-slate-700 text-slate-400 text-xs flex items-center gap-2 hint2-lock-btn opacity-50 cursor-not-allowed"
+                        disabled>
+                        <i class="fa-solid fa-lock text-amber-400"></i> Revelar Dica 2 (tente primeiro)
+                    </button>
+                    <div id="hint2-lfi_05" class="hidden mt-2 p-3 rounded-lg bg-amber-950/30 border border-amber-500/30">
+                        <p class="text-amber-300 font-semibold mb-1">Dica 2:</p>
+                        <p class="text-slate-300">• <?= htmlspecialchars($challenge['hint2']) ?></p>
+                        <p class="text-slate-400 mt-1">• Também funciona: <code class="text-cyan-400">?doc=/etc/passwd</code></p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
@@ -175,6 +188,10 @@ $safeDoc = basename($_GET['doc']);</pre>
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => { initHint2State('lfi_05'); });
+</script>
 
 <?php require_once __DIR__ . '/../components/footer.php'; ?>
 

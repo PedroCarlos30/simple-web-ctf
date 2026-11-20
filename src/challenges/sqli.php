@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 $pageTitle = "Desafio 2: SQL Injection";
 require_once __DIR__ . '/../components/header.php';
 
@@ -187,17 +189,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         </div>
     </div>
 
-    <!-- Dicas & Mitigação -->
+    <!-- Dicas Progressivas & Mitigação -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
             <h4 class="font-bold text-sm text-amber-400 flex items-center gap-2">
                 <i class="fa-solid fa-lightbulb"></i> Dicas de Exploração
             </h4>
-            <ul class="text-xs text-slate-300 space-y-2 font-mono">
-                <li>• No campo de usuário, insira: <code class="text-emerald-400">admin' --</code></li>
-                <li>• Ou use a condição universal: <code class="text-emerald-400">' OR 1=1 --</code> com qualquer senha.</li>
-                <li>• O <code class="text-cyan-400">--</code> no SQLite comenta o restante da query, ignorando a verificação de senha!</li>
-            </ul>
+            <div class="text-xs text-slate-300 space-y-3 font-mono">
+                <p class="text-emerald-400 font-semibold">Dica 1:</p>
+                <p>• <?= htmlspecialchars($challenge['hint1']) ?></p>
+                <div id="hint2-wrapper-sqli_02">
+                    <button id="hint2-btn-sqli_02" onclick="revealHint2('sqli_02')"
+                        class="mt-2 px-3 py-1.5 rounded-lg border border-slate-700 text-slate-400 text-xs flex items-center gap-2 hint2-lock-btn opacity-50 cursor-not-allowed"
+                        disabled>
+                        <i class="fa-solid fa-lock text-amber-400"></i> Revelar Dica 2 (tente primeiro)
+                    </button>
+                    <div id="hint2-sqli_02" class="hidden mt-2 p-3 rounded-lg bg-amber-950/30 border border-amber-500/30">
+                        <p class="text-amber-300 font-semibold mb-1">Dica 2:</p>
+                        <p class="text-slate-300">• <?= htmlspecialchars($challenge['hint2']) ?></p>
+                        <p class="text-slate-400 mt-1">• O <code class="text-cyan-400">--</code> comenta o restante da query, ignorando a verificação de senha!</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
@@ -214,6 +227,10 @@ $user = $stmt->fetch();</pre>
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => { initHint2State('sqli_02'); });
+</script>
 
 <?php require_once __DIR__ . '/../components/footer.php'; ?>
 

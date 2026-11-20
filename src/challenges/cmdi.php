@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 $pageTitle = "Desafio 6: Command Injection (RCE)";
 require_once __DIR__ . '/../components/header.php';
 
@@ -135,17 +137,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         </div>
     </div>
 
-    <!-- Dicas & Mitigação -->
+    <!-- Dicas Progressivas & Mitigação -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
             <h4 class="font-bold text-sm text-amber-400 flex items-center gap-2">
                 <i class="fa-solid fa-lightbulb"></i> Dicas de Exploração
             </h4>
-            <ul class="text-xs text-slate-300 space-y-2 font-mono">
-                <li>• No Linux, o ponto e vírgula (<code class="text-emerald-400">;</code>) permite rodar múltiplos comandos: <code class="text-cyan-400">127.0.0.1; whoami</code></li>
-                <li>• Liste os arquivos: <code class="text-emerald-400">127.0.0.1; ls -la ..</code></li>
-                <li>• Leia o arquivo de flag: <code class="text-emerald-400">127.0.0.1; cat ../secret_flag_system.txt</code></li>
-            </ul>
+            <div class="text-xs text-slate-300 space-y-3 font-mono">
+                <p class="text-emerald-400 font-semibold">Dica 1:</p>
+                <p>• <?= htmlspecialchars($challenge['hint1']) ?></p>
+                <div id="hint2-wrapper-cmdi_06">
+                    <button id="hint2-btn-cmdi_06" onclick="revealHint2('cmdi_06')"
+                        class="mt-2 px-3 py-1.5 rounded-lg border border-slate-700 text-slate-400 text-xs flex items-center gap-2 hint2-lock-btn opacity-50 cursor-not-allowed"
+                        disabled>
+                        <i class="fa-solid fa-lock text-amber-400"></i> Revelar Dica 2 (tente primeiro)
+                    </button>
+                    <div id="hint2-cmdi_06" class="hidden mt-2 p-3 rounded-lg bg-amber-950/30 border border-amber-500/30">
+                        <p class="text-amber-300 font-semibold mb-1">Dica 2:</p>
+                        <p class="text-slate-300">• <?= htmlspecialchars($challenge['hint2']) ?></p>
+                        <p class="text-slate-400 mt-1">• Ou liste arquivos: <code class="text-cyan-400">127.0.0.1; ls -la ..</code></p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
@@ -164,6 +177,10 @@ $output = shell_exec("ping -c 2 " . $safeHost);</pre>
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => { initHint2State('cmdi_06'); });
+</script>
 
 <?php require_once __DIR__ . '/../components/footer.php'; ?>
 
