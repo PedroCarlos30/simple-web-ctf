@@ -205,9 +205,9 @@ $progressPercent = $totalChallenges > 0 ? (int)round(($solvedCount / $totalChall
                             default => 'bg-slate-700 text-slate-300'
                         };
                     ?>
-                        <div id="challenge-card-<?= $id ?>" class="flex flex-col justify-between rounded-2xl bg-slate-900/90 border transition-all duration-300 hover:shadow-xl hover:border-slate-700 <?= $solved ? 'border-emerald-500/50 bg-emerald-950/10' : 'border-slate-800' ?> p-6">
+                        <div id="challenge-card-<?= $id ?>" class="flex flex-col justify-between h-full rounded-2xl bg-slate-900/90 border transition-all duration-300 hover:shadow-xl hover:border-slate-700 <?= $solved ? 'border-emerald-500/50 bg-emerald-950/10' : 'border-slate-800' ?> p-6">
                             <!-- Topo do Card -->
-                            <div class="space-y-4">
+                            <div class="space-y-4 flex-grow">
                                 <div class="flex items-center justify-between gap-2">
                                     <span class="px-2.5 py-1 rounded-md text-xs font-mono font-medium bg-slate-800 text-slate-300 border border-slate-700">
                                         <?= htmlspecialchars($ch['category']) ?>
