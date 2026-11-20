@@ -287,7 +287,6 @@ $progressPercent = $totalChallenges > 0 ? (int)round(($solvedCount / $totalChall
                                         </div>
                                     </div>
                                 </div>
-                                </div>
 
                                 <!-- Caixa de Mitigação Acordeão -->
                                 <div id="mitigation-<?= $id ?>" class="hidden bg-slate-950/80 rounded-xl p-3 border border-emerald-900/40 text-xs space-y-1">
